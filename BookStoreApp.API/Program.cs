@@ -71,9 +71,9 @@ namespace BookStoreApp.API
 
             app.UseCors("AllowAll");
 
-            app.UseAuthorization();
-
             app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.MapControllers();
 
