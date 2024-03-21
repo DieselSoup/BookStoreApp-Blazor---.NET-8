@@ -8,6 +8,8 @@ using IAuthenticationService = BookStoreApp.Blazor.Server.UI.Services.Authentica
 using AuthenticationService = BookStoreApp.Blazor.Server.UI.Services.Authentication.AutheticationService;
 using BookStoreApp.Blazor.Server.UI.Providers;
 using Microsoft.AspNetCore.Components.Authorization;
+using BookStoreApp.Blazor.Server.UI.Services;
+using BookStoreApp.Blazor.Server.UI.Configurations;
 
 namespace BookStoreApp.Blazor.Server.UI
 {
@@ -22,7 +24,12 @@ namespace BookStoreApp.Blazor.Server.UI
             builder.Services.AddServerSideBlazor();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("http://localhost:5122"));
+
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+
+            builder.Services.AddAutoMapper(typeof(MapperConfig));
+
             builder.Services.AddScoped<ApiAuthenticationStateProvider>();
             builder.Services.AddScoped<AuthenticationStateProvider>(p =>
                             p.GetRequiredService<ApiAuthenticationStateProvider>());
